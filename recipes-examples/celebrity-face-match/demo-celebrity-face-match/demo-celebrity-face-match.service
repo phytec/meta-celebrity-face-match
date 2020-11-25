@@ -1,0 +1,16 @@
+[Unit]
+Description=Celebrity Face Match Demo Service
+Wants=systemd-udev-settle.service weston.service
+After=systemd-udev-settle.service weston.service
+
+[Service]
+Type=simple
+User=root
+ExecStart=bash -c ". /etc/profile ;/usr/bin/python3 /usr/share/demo-celebrity-face-match/aidemo.py"
+WorkingDirectory=/usr/share/demo-celebrity-face-match/
+StandardOutput=syslog
+KillSignal=SIGINT
+TimeoutStopSec=5
+
+[Install]
+WantedBy=multi-user.target
