@@ -13,8 +13,8 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/MIT;md5=0835ade698e0bcf8506ecda
 SRC_URI = " \
     ftp://ftp.phytec.de/pub/Software/Linux/Applications/${BPN}-${PV}.tar.gz;unpack=false \
 "
-SRC_URI[md5sum] = "ad0cd27eced09901bd20ca43ab9e94db"
-SRC_URI[sha256sum] = "b23001c4aea7621958654059e7d750799334bb3e0f994adb585166b56beb419c"
+SRC_URI[md5sum] = "aec68e42fb424d4d299997559f44388b"
+SRC_URI[sha256sum] = "4c7f187e605fb85f6b777cb868e03defc16b4b12a936ae2d396cfa75766c149f"
 
 do_configure[noexec] = "1"
 do_compile[noexec] = "1"
