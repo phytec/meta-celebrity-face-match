@@ -12,7 +12,7 @@ SRC_URI = " \
     file://demo-celebrity-face-match.service \
 "
 
-SRCREV = "e8d2a23210fa5eb9ebda4b45a6422fca3b9668bf"
+SRCREV = "7687234cafabdd82b5fe4f3212842aaacfd88a81"
 
 S = "${WORKDIR}/git"
 INSTALL_DIR = "${D}${datadir}/${PN}"
