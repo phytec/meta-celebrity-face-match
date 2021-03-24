@@ -5,7 +5,7 @@ This layer contains the Celebrity Face Match Ai Demo for the PHYTEC
 phyBOARD-Pollux with phyCORE-i.MX 8MPlus.
 
 The Demo is currently in ALPHA state as it is based on the
-BSP-Yocto-FSL-i.MX8MP-ALPHA1 BSP.
+BSP-Yocto-FSL-i.MX8MP-ALPHA2 BSP.
 
 All recipes are provided by the MIT licensing Terms unless otherwise noted.
 
@@ -51,4 +51,4 @@ M:  Stefan Riedmüller <s.riedmueller@phytec.de>
 Dependencies
 ============
 
-This layer depends on the PHYTEC BSP-Yocto-FSL-i.MX8MP-ALPHA1 BSP release.
+This layer depends on the PHYTEC BSP-Yocto-FSL-i.MX8MP-ALPHA2 BSP release.
