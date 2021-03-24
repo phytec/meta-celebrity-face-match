@@ -1,4 +1,4 @@
-require recipes-images/images/phytec-qt5demo-image.bb
+require recipes-images/images/phytec-vision-image.bb
 
 SUMMARY =  "PHYTEC's AiKit Celebrity Face Match Demo image"
 LICENSE = "MIT"
