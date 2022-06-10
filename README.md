@@ -4,8 +4,7 @@ meta-celebrity-face-match
 This layer contains the Celebrity Face Match Ai Demo for the PHYTEC
 phyBOARD-Pollux with phyCORE-i.MX 8MPlus.
 
-The Demo is currently in rc state as it is based on the
-BSP-Yocto-FSL-i.MX8MP-PD21.1.2-rc1 BSP.
+The Demo is based on the BSP-Yocto-FSL-i.MX8MP-PD21.1.3 BSP.
 
 All recipes are provided by the MIT licensing Terms unless otherwise noted.
 
@@ -51,4 +50,4 @@ M:  Stefan Riedmüller <s.riedmueller@phytec.de>
 Dependencies
 ============
 
-This layer depends on the PHYTEC BSP-Yocto-FSL-i.MX8MP-PD21.1.2-rc1 BSP release.
+This layer depends on the PHYTEC BSP-Yocto-FSL-i.MX8MP-PD21.1.3 BSP release.
