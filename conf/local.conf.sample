@@ -1,6 +1,6 @@
 MACHINE ?= "UNASSIGNED"
 
-DISTRO ?= "yogurt"
+DISTRO ?= "ampliphy"
 
 ########################
 # global configuration #
