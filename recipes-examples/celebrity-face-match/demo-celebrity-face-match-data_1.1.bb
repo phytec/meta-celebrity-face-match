@@ -29,6 +29,6 @@ do_install() {
     tar --no-same-owner -xzpf ${WORKDIR}/${PN}-${PV}.tar.gz -C ${INSTALL_DIR}
 }
 
-FILES_${PN} = " \
+FILES:${PN} = " \
     ${datadir}/ \
 "
