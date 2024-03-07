@@ -8,7 +8,7 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
 
 SRC_URI = " \
-    git://github.com/phytec/demo-celebrity-face-match;branch=main \
+    git://github.com/phytec/demo-celebrity-face-match;branch=main;protocol=https \
     file://demo-celebrity-face-match.service \
 "
 
@@ -19,7 +19,7 @@ INSTALL_DIR = "${D}${datadir}/${PN}"
 
 inherit systemd
 
-SYSTEMD_SERVICE_${PN} = "demo-celebrity-face-match.service"
+SYSTEMD_SERVICE:${PN} = "demo-celebrity-face-match.service"
 
 do_configure[noexec] = "1"
 do_compile[noexec] = "1"
@@ -33,7 +33,7 @@ do_install() {
     done
 }
 
-RDEPENDS_${PN} += " \
+RDEPENDS:${PN} += " \
     demo-celebrity-face-match-data \
     opencv \
     python3 \
@@ -43,7 +43,7 @@ RDEPENDS_${PN} += " \
     gstreamer1.0-plugins-good \
 "
 
-FILES_${PN} = " \
+FILES:${PN} = " \
     ${datadir}/${PN} \
     ${systemd_system_unitdir}/* \
 "
