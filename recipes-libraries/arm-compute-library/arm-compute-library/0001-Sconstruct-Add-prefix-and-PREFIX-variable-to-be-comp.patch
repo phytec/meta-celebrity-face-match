@@ -1,0 +1,34 @@
+From 6101c369780d3891f20c02a9513d54f222b2c2e0 Mon Sep 17 00:00:00 2001
+From: Steffen Hemer <s.hemer@phytec.de>
+Date: Thu, 7 Mar 2024 18:21:54 +0100
+Subject: [PATCH] Sconstruct: Add prefix and PREFIX variable to be compatible
+ with poky scons class
+
+do_configure step (and do_compile but this is overriden meta_imx recipe)
+uses prefix and PREFIX as part of the scons call. This causes an error
+if the Sconstruct script does not have them defined. So define them but
+do not use them fixes the build.
+
+Signed-off-by: Steffen Hemer <s.hemer@phytec.de>
+---
+ SConstruct | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/SConstruct b/SConstruct
+index 13da02628a..da77b592f3 100644
+--- a/SConstruct
++++ b/SConstruct
+@@ -123,7 +123,9 @@ vars.AddVariables(
+     ("extra_link_flags", "Extra LD flags to be appended to the build command", ""),
+     ("compiler_cache", "Command to prefix to the C and C++ compiler (e.g ccache)", ""),
+     ("specs_file", "Specs file to use (e.g. rdimon.specs)", ""),
+-    ("build_config", "Operator/Data-type/Data-layout configuration to use for tailored ComputeLibrary builds. Can be a JSON file or a JSON formatted string", "")
++    ("build_config", "Operator/Data-type/Data-layout configuration to use for tailored ComputeLibrary builds. Can be a JSON file or a JSON formatted string", ""),
++	("prefix", ""),
++	("PREFIX", "")
+ )
+ 
+ 
+-- 
+2.25.1
+
