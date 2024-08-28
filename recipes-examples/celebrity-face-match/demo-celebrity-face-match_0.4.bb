@@ -8,11 +8,12 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://LICENSE;md5=2ee41112a44fe7014dce33e26468ba93"
 
 SRC_URI = " \
-    git://github.com/phytec/demo-celebrity-face-match;branch=main;protocol=https \
+    git://github.com/phytec/demo-celebrity-face-match;branch=${BRANCH};protocol=https \
     file://demo-celebrity-face-match.service \
 "
 
-SRCREV = "d4eaa559193d5139b23827a053b60f6901d24eee"
+BRANCH = "main"
+SRCREV = "89b6ca51d233fb1eabe0b80be192081dea017245"
 
 S = "${WORKDIR}/git"
 INSTALL_DIR = "${D}${datadir}/${PN}"
