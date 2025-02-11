@@ -1,4 +1,4 @@
-From 6101c369780d3891f20c02a9513d54f222b2c2e0 Mon Sep 17 00:00:00 2001
+From f7af07a7bd23f16c32e316d1e4c009d3339a151c Mon Sep 17 00:00:00 2001
 From: Steffen Hemer <s.hemer@phytec.de>
 Date: Thu, 7 Mar 2024 18:21:54 +0100
 Subject: [PATCH] Sconstruct: Add prefix and PREFIX variable to be compatible
@@ -15,10 +15,10 @@ Signed-off-by: Steffen Hemer <s.hemer@phytec.de>
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/SConstruct b/SConstruct
-index 13da02628a..da77b592f3 100644
+index 68c518a4a0..f06c7e75a2 100644
 --- a/SConstruct
 +++ b/SConstruct
-@@ -123,7 +123,9 @@ vars.AddVariables(
+@@ -138,7 +138,9 @@ vars.AddVariables(
      ("extra_link_flags", "Extra LD flags to be appended to the build command", ""),
      ("compiler_cache", "Command to prefix to the C and C++ compiler (e.g ccache)", ""),
      ("specs_file", "Specs file to use (e.g. rdimon.specs)", ""),
@@ -28,7 +28,4 @@ index 13da02628a..da77b592f3 100644
 +	("PREFIX", "")
  )
  
- 
--- 
-2.25.1
-
+ if version_at_least(SCons.__version__, "4.0"):
