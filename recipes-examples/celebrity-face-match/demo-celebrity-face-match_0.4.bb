@@ -37,6 +37,7 @@ do_install() {
 RDEPENDS:${PN} += " \
     demo-celebrity-face-match-data \
     opencv \
+    gtk+3 \
     python3 \
     python3-fcntl \
     python3-pygobject \
