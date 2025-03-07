@@ -1,0 +1,30 @@
+From 0348dab686de152a7c4e7497012f296b7c2783e5 Mon Sep 17 00:00:00 2001
+From: Martin Schwan <m.schwan@phytec.de>
+Date: Tue, 25 Feb 2025 15:35:34 +0100
+Subject: [PATCH] systemd-udev: Fix path to ipp-usb
+
+Fix the path to ipp-usb binary in the rootfs and use the /usr directory.
+
+Upstream-Status: Pending
+
+Signed-off-by: Martin Schwan <m.schwan@phytec.de>
+---
+ systemd-udev/ipp-usb.service | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/src/import/systemd-udev/ipp-usb.service b/src/import/systemd-udev/ipp-usb.service
+index e6488bf..6cb5e54 100644
+--- a/src/import/systemd-udev/ipp-usb.service
++++ b/src/import/systemd-udev/ipp-usb.service
+@@ -6,4 +6,7 @@ Wants=avahi-daemon.service
+ 
+ [Service]
+ Type=simple
+-ExecStart=/sbin/ipp-usb udev
++ExecStart=/usr/bin/ipp-usb udev
++
++[Install]
++WantedBy=multi-user.target
+-- 
+2.25.1
+
