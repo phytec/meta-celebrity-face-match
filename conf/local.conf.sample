@@ -3,7 +3,7 @@ MACHINE ?= "UNASSIGNED"
 DISTRO ?= "ampliphy"
 
 ########################
-# global configuration #
+# Global configuration #
 ########################
 
 # That are the default values of bitbake.  Adapt these to your workspace and
@@ -13,12 +13,21 @@ DISTRO ?= "ampliphy"
 
 # License Handling
 #  - Uncomment for i.MX6 proprietary GPU libraries
-#LICENSE_FLAGS_WHITELIST += "license-nxp_v14-june-2016_imx-gpu-viv"
+#LICENSE_FLAGS_ACCEPTED += "license-nxp_v14-june-2016_imx-gpu-viv"
 #  - Uncomment for Freescale i.MX6 VPU firmware blobs
-#LICENSE_FLAGS_WHITELIST += "license-freescale_v12-march-2016_firmware-imx"
+#LICENSE_FLAGS_ACCEPTED += "license-freescale_v12-march-2016_firmware-imx"
 
-# build artifacts are deployed here
-DEPLOY_DIR = "${TOPDIR}/deploy"
+# build artifacts are deployed here,
+# separate by ${DISTRO} postfix for building multiple distros in the same TOPDIR
+TMPDIR = "${TOPDIR}/tmp-${DISTRO}"
+DEPLOY_DIR = "${TOPDIR}/deploy-${DISTRO}"
+TI_COMMON_DEPLOY = "${DEPLOY_DIR}"
+
+# Sharing a deploy directory in a multiconfig setup leads to
+# build errors as poky started to restrict deployment of identical
+# license files. Split licenses directory into subdirectories in
+# a multiconfig environment for native packages.
+LICENSE_DIRECTORY:class-native = "${DEPLOY_DIR}/licenses/${BB_CURRENT_MC}"
 
 # enable bitbakes git shallow functionality: this reduces download volume
 # from 7.3G to 1.6 G as of sumo. If you need the git history of a project,
@@ -31,7 +40,7 @@ BB_GIT_SHALLOW = "1"
 # busybox only supports menuconfig
 #KCONFIG_CONFIG_COMMAND = "menuconfig"
 KCONFIG_CONFIG_COMMAND = "nconfig"
-KCONFIG_CONFIG_COMMAND_pn-busybox = "menuconfig"
+KCONFIG_CONFIG_COMMAND:pn-busybox = "menuconfig"
 
 # SDK will be build for that cpu
 #SDKMACHINE ?= "x86_64"
@@ -51,28 +60,32 @@ BB_DISKMON_DIRS ??= "\
 # Image configuration #
 #######################
 
-# The following line disables the autostart of the phytec-qtdemo by
-# default, but you can start the demo anytime using
-#  $ systemctl start phytec-qtdemo.service
-#SYSTEMD_AUTO_ENABLE_pn-phytec-qtdemo = "disable"
-
 # You can disable and enable FSTYPES as you wish. e.g. 'ext4'.
 # This variable is ordering dependend.
 #IMAGE_FSTYPES = "tar.gz wic ubifs emmc"
 
-# Select a preconfigured A/B system setup for SD/eMMC images.
-#WKS_FILES_mx6 = "imx6-rauc-sdimage.wks"
-#WKS_FILES_mx6ul = "imx6-rauc-sdimage.wks"
-#WKS_FILES_mx8m = "imx8m-rauc-sdimage.wks"
-#WKS_FILES_mx8mn = "imx8mn-mp-rauc-sdimage.wks"
-#WKS_FILES_mx8mp = "imx8mn-mp-rauc-sdimage.wks"
+# To change the variable for any imx8 machine:
+#IMAGE_FSTYPES:mx8-generic-bsp = "tar.gz wic.xz wic.bmap"
+
+# By default both the partup package and wic images are build. Disable one of
+# them to save space.
+# Disable partup package build
+# IMAGE_FSTYPES:remove = "partup"
+
+# Disable wic image build
+# IMAGE_FSTYPES:remove = "wic wic.bmap wic.xz"
 
 # Turn on debugging options of the kernel
-DEBUG_BUILD_pn-linux-mainline = "1"
-# Turn on debugging options of the imx kernel
-DEBUG_BUILD_pn-linux-imx = "1"
+#DEBUG_BUILD:pn-linux-phytec = "1"
+# Turn on debugging options of the imx8/imx9 kernel
+#DEBUG_BUILD:pn-linux-phytec-imx = "1"
+## Turn on debugging options of the imx7 kernel
+#DEBUG_BUILD:pn-linux-imx = "1"
 # Turn on debugging options of the barebox
-DEBUG_BUILD_pn-barebox = "1"
+#DEBUG_BUILD:pn-barebox = "1"
+
+# Include kernel sources in SDK
+TOOLCHAIN_TARGET_TASK:append = " make kernel-devsrc"
 
 # The default package class of the distro ampliphy is 'package_ipk'. The first
 # value is used as the package manager to build the image and sdk. To build
@@ -86,7 +99,7 @@ DEBUG_BUILD_pn-barebox = "1"
 # filesystem:
 #IMAGE_ROOTFS_EXTRA_SPACE = "524288"
 
-# See http://www.yoctoproject.org/docs/1.8/ref-manual/ref-manual.html#ref-features-image
+# See https://docs.yoctoproject.org/ref-manual/features.html#image-features
 #   "Through these variables, you can add several different predefined
 #    packages such as development utilities or packages with debug information
 #    needed to investigate application problems or profile applications
@@ -101,7 +114,7 @@ EXTRA_IMAGE_FEATURES += "debug-tweaks"
 #EXTRA_IMAGE_FEATURES += "tools-debug"
 
 ######################
-# rauc configuration #
+# RAUC configuration #
 ######################
 
 # certificate location for signing bundles
@@ -111,12 +124,21 @@ EXTRA_IMAGE_FEATURES += "debug-tweaks"
 # QT configuration #
 ####################
 
+# The following line disables the autostart of the phytec-qtdemo by
+# default, but you can start the demo anytime using
+#  $ systemctl start phytec-qtdemo.service
+#SYSTEMD_AUTO_ENABLE:pn-phytec-qtdemo = "disable"
+
 # We disable qt widgets per default to save about 10 MB of storage. If
 # you need qt widget support, you can enable it with this line
-#DISTRO_FEATURES_append = " qtwidgets"
+#DISTRO_FEATURES:append = " qtwidgets"
 
 CONF_VERSION = "2"
 
-# Uncomment to accept NXP EULA
-# EULA can be found under ../sources/meta-freescale/EULA
+# Uncomment to accept NXP EULA (needed, if any NXP / freescale layer is used)
+# EULA can then be found under ../sources/meta-freescale/EULA
 #ACCEPT_FSL_EULA = "1"
+
+# A TISDK BSP requires per default an external toolchain
+# Provide a default path that is compatible to our TISDK docker image
+TOOLCHAIN_BASE ?= "/opt/PHYTEC_BSPs"
