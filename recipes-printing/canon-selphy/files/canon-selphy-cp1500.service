@@ -1,0 +1,12 @@
+[Unit]
+Description=Install and setup a Canon SELPHY CP1500 printer via USB
+After=cups.service multi-user.target
+Requires=cups.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/setup-default-printer Canon_SELPHY_CP1500_USB "ipp://localhost:60000/ipp/print" everywhere
+
+[Install]
+WantedBy=multi-user.target

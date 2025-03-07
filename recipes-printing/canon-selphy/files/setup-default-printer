@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if lpstat -v 2> /dev/null | grep -q $1; then
+    printf "Printer $1 is already installed. Exiting.\n"
+    exit 0
+fi
+
+lpadmin -p $1 -E -v "$2" -m $3
+lpadmin -d $1
