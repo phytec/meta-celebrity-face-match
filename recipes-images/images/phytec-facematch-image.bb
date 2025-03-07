@@ -6,4 +6,5 @@ LICENSE = "MIT"
 IMAGE_INSTALL += "\
     packagegroup-imx-ml \
     demo-celebrity-face-match \
+    canon-selphy \
 "
