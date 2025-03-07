@@ -41,6 +41,7 @@ RDEPENDS:${PN} += " \
     python3 \
     python3-fcntl \
     python3-pygobject \
+    python3-pycups \
     tensorflow-lite \
     gstreamer1.0-plugins-good \
 "
