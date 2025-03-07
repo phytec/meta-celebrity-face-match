@@ -46,6 +46,7 @@ Maintainer
 ==========
 
 M:  Stefan Riedmüller <s.riedmueller@phytec.de>
+M:  Martin Schwan <m.schwan@phytec.de>
 
 Dependencies
 ============
