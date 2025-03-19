@@ -16,28 +16,20 @@ BRANCH = "main"
 SRCREV = "89b6ca51d233fb1eabe0b80be192081dea017245"
 
 S = "${WORKDIR}/git"
-INSTALL_DIR = "${D}${datadir}/${PN}"
 
-inherit systemd
+DEPENDS += "gtk+3"
+
+inherit meson pkgconfig systemd
 
 SYSTEMD_SERVICE:${PN} = "demo-celebrity-face-match.service"
 
-do_configure[noexec] = "1"
-do_compile[noexec] = "1"
-
-do_install() {
-    install -Dm 0644 ${WORKDIR}/demo-celebrity-face-match.service ${D}${systemd_system_unitdir}/demo-celebrity-face-match.service
-
-    install -d ${D}${datadir}/${PN}
-    for f in ${S}/*.py; do \
-        install -Dm 0644 $f ${D}${datadir}/${PN}/
-    done
+do_install:append() {
+    install -Dm 0644 ${WORKDIR}/${BPN}.service ${D}${systemd_system_unitdir}/${BPN}.service
 }
 
 RDEPENDS:${PN} += " \
     demo-celebrity-face-match-data \
     opencv \
-    gtk+3 \
     python3 \
     python3-fcntl \
     python3-pygobject \
@@ -47,6 +39,7 @@ RDEPENDS:${PN} += " \
 "
 
 FILES:${PN} = " \
-    ${datadir}/${PN} \
-    ${systemd_system_unitdir}/* \
+    ${bindir}/${BPN} \
+    ${PYTHON_SITEPACKAGES_DIR}/demo_celebrity_face_match/ \
+    ${systemd_system_unitdir}/${BPN}.service \
 "
